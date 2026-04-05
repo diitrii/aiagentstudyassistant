@@ -1,1 +1,6 @@
 ctof.py
+.venv/
+__pycache__/
+*.pyc
+keywords.txt
+study_session_summary.txt
