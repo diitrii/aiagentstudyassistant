@@ -1,25 +1,70 @@
-# AI Study Copilot - Subsystem 2
+# AI Study Copilot
 
-This project is the second subsystem of a larger hackathon project focused on improving study habits and productivity.
+## Overview
 
-Subsystem 2 monitors the user's active windows, extracts keywords/topics from what they are working on, tracks inactivity, detects excessive tab switching, and provides study-related reminders or popups.
+This project is a two-part hackathon project focused on improving study habits, productivity, and the study environment.
+
+The system is split into two connected subsystems:
+
+1. Subsystem 1 focuses on physical study conditions using hardware such as an Arduino Uno and Rubik Pi.
+2. Subsystem 2 focuses on software-based monitoring of the user's study behavior and screen activity.
+
+The goal is for both subsystems to eventually work together as one product.
+
+Subsystem 1 monitors environmental factors such as room temperature and light levels. Using sensors connected to an Arduino, the system can detect## Features
+
+### Subsystem 1 - Hardware Environment Monitor
+
+* Uses an Arduino Uno and Rubik Pi
+* Monitors room temperature
+* Monitors room light levels
+* Uses LEDs to indicate environmental conditions
+* Sends sensor data to a connected device
+* Can be expanded to provide environmental recommendations
+
+### Subsystem 2 - AI Study Assistant
+
+* Tracks active window titles and processes
+* Detects topic keywords from current activity
+* Monitors window switching behavior
+* Detects excessive tab switching
+* Detects inactivity and displays reminders
+* Generates a study session summary file
+* Exports unique keywords gathered during a session
+* GUI dashboard for starting and stopping monitoring
+
+## Project Structure.
 
 ## Features
 
-* Active window tracking
-* Process name tracking
-* Topic extraction from window titles
-* Keyword extraction
-* Inactivity detection
-* Tab/window switching detection
-* Popups for inactivity or distraction
-* Export of study session keywords and summaries
-* GUI dashboard to start and stop monitoring
+* Tracks active window titles and processes
+* Detects topic keywords from current activity
+* Monitors window switching behavior
+* Detects excessive tab switching
+* Detects inactivity and displays reminders
+* Generates a study session summary file
+* Exports unique keywords gathered during a session
+* GUI dashboard for starting and stopping monitoring
+
+## Project Structure
+
+```text
+app/
+├── main.py
+├── ui/
+├── monitoring/
+├── analysis/
+├── popups/
+├── exports/
+└── utils/
+```
+
+The software portion of the repository currently contains the code for Subsystem 2. Hardware files, Arduino code, and Rubik Pi setup for Subsystem 1 may be added later.
 
 ## Requirements
 
-* Python 3.10+
-* Windows
+* Python 3.10 or newer
+* Windows operating system
 * VS Code recommended
 
 ## Installation
@@ -39,7 +84,7 @@ python -m venv .venv
 
 3. Activate the virtual environment:
 
-Windows:
+### Windows
 
 ```bash
 .venv\Scripts\activate
@@ -53,41 +98,24 @@ pip install -r requirements.txt
 
 ## Running the Program
 
-Run the main file:
+From the project root folder, run:
 
 ```bash
 python app/main.py
 ```
 
-The GUI should appear and allow you to start and stop the assistant.
-
-## Project Structure
-
-```text
-app/
-├── main.py
-├── ui/
-├── monitoring/
-├── popup/
-├── exporters/
-├── utils/
-```
-
 ## Notes
 
-* Do not upload the `.venv` folder to GitHub.
-* The `.gitignore` file is already configured to ignore virtual environments and cache files.
-* Some functionality may require administrator permissions depending on the monitoring libraries being used.
-* The project is currently designed for Windows.
+* The program is currently designed for Windows.
+* Some features may require administrator permissions depending on how window monitoring is implemented.
+* Generated files such as keyword exports or study summaries are not included in the repository.
+* The `.venv` folder should not be uploaded to GitHub.
 
 ## Future Improvements
 
-* Smarter topic detection
-* Better keyword grouping
-* Online search assistance
-* Study recommendations based on active content
-* Arduino / Rubik Pi integration with subsystem 1
-* Improved popup design and customization
+* Fully connect both subsystems together
+* Allow Subsystem 2 to trigger environmental recommendations through Subsystem 1
+* Add on
 
 ## Authors
 
