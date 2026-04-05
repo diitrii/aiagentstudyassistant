@@ -70,19 +70,11 @@ import time
 ser = serial.Serial('/dev/ttyUSB0', 9600)
 
 # --- Pomodoro Timer State ---
-focus_mode = "normal"          # "normal" or "deep"
 session_start = time.time()    # timestamp when session began
-break_triggered = False        # whether we've told the user to take a break
 
 FOCUS_THRESHOLDS = {
-    "normal": {
-        "warn":   20 * 60,   # 20 min  → -10, break needed
-        "urgent": 40 * 60,   # 40 min  → -20, break urgent
-    },
-    "deep": {
-        "warn":   50 * 60,   # 50 min  → -10, break needed
-        "urgent": 90 * 60,   # 1.5 hrs → -20, break urgent
-    }
+    "warn":   20 * 60,   # 20 min  → -10, break needed
+    "urgent": 40 * 60,   # 40 min  → -20, break urgent
 }
 
 
@@ -120,7 +112,7 @@ def classify_focus(elapsed):
     Returns (penalty, message) based on elapsed session time and focus mode.
     Returns (0, None) if still within the ideal focus window.
     """
-    thresholds = FOCUS_THRESHOLDS[focus_mode]
+    thresholds = FOCUS_THRESHOLDS
 
     if elapsed >= thresholds["urgent"]:
         mins = int(elapsed // 60)
@@ -166,11 +158,6 @@ def send_led(state, break_urgent=False):
 
 
 # --- Main loop ---
-print(f"🍅 Pomodoro Timer started | Mode: {focus_mode.upper()} focus")
-print(f"   Warn at: {FOCUS_THRESHOLDS[focus_mode]['warn']//60} min | "
-      f"Urgent at: {FOCUS_THRESHOLDS[focus_mode]['urgent']//60} min")
-print("=" * 50)
-
 while True:
     line = ser.readline().decode().strip()
 
@@ -191,16 +178,6 @@ while True:
         # --- Determine state ---
         state = get_state(score)
         break_urgent = focus_penalty == -20
-
-        # --- Output ---
-        print(
-            f"\n⏱  Elapsed: {format_elapsed(elapsed)} | Mode: {focus_mode.upper()}")
-        print(f"💡 Light: {light:>5}  | {light_msg}")
-        print(f"🌡  Temp:  {temp:>5.1f}°C | {temp_msg}")
-        if focus_msg:
-            print(f"🍅 Focus: {focus_msg}")
-        print(f"📊 Score: {score} | State: {state}")
-        print("-" * 50)
 
         # --- Send LED command ---
         send_led(state, break_urgent)
